@@ -9,25 +9,31 @@ import {
   ParseIntPipe,
   Delete,
   Patch,
+  Headers,
 } from '@nestjs/common';
+
 import { InjectRepository } from '@nestjs/typeorm';
-import { ToDoModel } from 'src/models/toDo.model';
-import { ToDoSchema } from 'src/schema/toDo.Schema';
+import { TarefaModel } from 'src/models/toDo.model';
+import { TarefaSchema } from 'src/schema/toDo.Schema';
 import { Repository } from 'typeorm';
 
-@Controller('/todo')
-export class ToDoController {
+@Controller('/tarefa')
+export class TarefaController {
   constructor(
-    @InjectRepository(ToDoModel) private model: Repository<ToDoModel>,
+    @InjectRepository(TarefaModel) private model: Repository<TarefaModel>,
   ) {}
 
   @Post()
-  public async create(@Body() body: ToDoSchema): Promise<ToDoModel> {
+  public async create(
+    @Body() body: TarefaSchema,
+    @Headers('Authorization') authorization: string,
+  ): Promise<TarefaModel> {
+    console.log(authorization);
     return this.model.save(body);
   }
 
   @Get(':id')
-  public async getOne(@Param('id') id: number): Promise<ToDoModel> {
+  public async getOne(@Param('id') id: number): Promise<TarefaModel> {
     const ToDo = await this.model.findOne({ where: { id } });
 
     if (!ToDo) {
@@ -37,15 +43,15 @@ export class ToDoController {
   }
 
   @Get()
-  public async getAll(): Promise<ToDoModel[]> {
+  public async getAll(): Promise<TarefaModel[]> {
     return this.model.find();
   }
 
   @Put(':id')
   public async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() body: ToDoSchema,
-  ): Promise<ToDoModel> {
+    @Body() body: TarefaSchema,
+  ): Promise<TarefaModel> {
     const ToDo = await this.model.findOne({ where: { id } });
     if (!ToDo) {
       throw new NotFoundException(`Tarefa com o id: ${id} não encontrada.`);
@@ -59,7 +65,7 @@ export class ToDoController {
   public async patch(
     @Param('id') id: number,
     @Body() body,
-  ): Promise<ToDoModel> {
+  ): Promise<TarefaModel> {
     const ToDo = await this.model.findOne({ where: { id } });
     if (!ToDo) {
       throw new NotFoundException(`Tarefa com o id: ${id} não encontrada.`);

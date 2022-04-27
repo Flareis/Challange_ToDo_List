@@ -61,7 +61,7 @@ export class UserController {
 
     response.cookie('jwt', jwt, { httpOnly: true });
     return {
-      message: 'Success!',
+      message: 'Usuário logado com sucesso!',
     };
   }
 
@@ -90,7 +90,7 @@ export class UserController {
     response.clearCookie('jwt');
 
     return {
-      message: 'success',
+      message: 'Logout do usuário realizado com sucesso.',
     };
   }
 }

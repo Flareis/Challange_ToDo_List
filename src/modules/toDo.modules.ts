@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ToDoController } from 'src/controllers/toDo.controller';
-import { ToDoModel } from 'src/models/toDo.model';
+import { TarefaController } from 'src/controllers/toDo.controller';
+import { TarefaModel } from 'src/models/toDo.model';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ToDoModel])],
-  controllers: [ToDoController],
+  imports: [TypeOrmModule.forFeature([TarefaModel])],
+  controllers: [TarefaController],
 })
-export class ToDoModule {}
+export class TarefaModule {}

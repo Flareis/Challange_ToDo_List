@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class ToDoModel {
+export class TarefaModel {
   @PrimaryGeneratedColumn()
   id: number;
 
