@@ -26,9 +26,9 @@ export class TarefaController {
   @Post()
   public async create(
     @Body() body: TarefaSchema,
-    @Headers('Authorization') authorization: string,
+    //@Headers('Authorization') authorization: string,
   ): Promise<TarefaModel> {
-    console.log(authorization);
+    //console.log(authorization);
     return this.model.save(body);
   }
 
@@ -37,7 +37,7 @@ export class TarefaController {
     const ToDo = await this.model.findOne({ where: { id } });
 
     if (!ToDo) {
-      throw new NotFoundException(`Tarefa com o ${id} não encontrada.`);
+      throw new NotFoundException(`Tarefa com o id: ${id} não encontrada.`);
     }
     return ToDo;
   }
